@@ -29,8 +29,6 @@ async def __register(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user = await User.init(update.effective_chat.id)
 
-    print("XXXX", update.effective_chat.id)
-
     if user.exists:
         await update.message.reply_text(
             "You are already registered! Type /help to see what you can do."

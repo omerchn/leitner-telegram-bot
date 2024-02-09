@@ -11,8 +11,6 @@ from telegram.ext import (
     filters,
     CallbackQueryHandler,
 )
-from consts import Question
-from date_utils import get_days_from_time
 from user import User
 from handlers.cancel import cancel_handler
 
@@ -36,16 +34,7 @@ async def __ask(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("You have no questions! Type /add to add.")
         return ConversationHandler.END
 
-    def is_today_question(question: Question):
-        question_box = next(
-            x for x in user.boxes if x["index"] == question["box_index"]
-        )
-        days_from_answered = get_days_from_time(question["last_answered"])
-        return days_from_answered >= question_box["ask_interval_days"]
-
-    questions_for_today = [
-        question for question in user.questions if is_today_question(question)
-    ]
+    questions_for_today = user.get_questions_for_today()
     context.user_data["questions_for_today"] = questions_for_today
 
     if len(questions_for_today) == 0:

@@ -4,8 +4,6 @@ from telegram.ext import (
     JobQueue,
     ContextTypes,
 )
-from consts import Question
-from date_utils import get_days_from_time
 import db
 from user import User
 
@@ -24,16 +22,7 @@ async def __remind(context: ContextTypes.DEFAULT_TYPE):
 
     user = await User.init(chat_id)
 
-    def is_today_question(question: Question):
-        question_box = next(
-            x for x in user.boxes if x["index"] == question["box_index"]
-        )
-        days_from_answered = get_days_from_time(question["last_answered"])
-        return days_from_answered >= question_box["ask_interval_days"]
-
-    questions_for_today = [
-        question for question in user.questions if is_today_question(question)
-    ]
+    questions_for_today = user.get_questions_for_today()
 
     if len(questions_for_today) == 0:
         await context.bot.send_message(

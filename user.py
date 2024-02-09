@@ -1,7 +1,7 @@
 import uuid
 import db
-from consts import DEFAULT_BOXES, DEFAULT_QUESTIONS, Question
-from date_utils import get_initial_time, get_today_time
+from consts import DEFAULT_BOXES, DEFAULT_QUESTIONS, Box, Question
+from date_utils import get_days_from_time, get_initial_time, get_today_time
 
 
 class User:
@@ -66,6 +66,22 @@ class User:
 
         self.questions = list(map(update, self.questions))
         await self.__save()
+
+    def get_questions_for_today(self):
+        def is_today_question(question: Question):
+            question_box = next(
+                x for x in self.boxes if x["index"] == question["box_index"]
+            )
+            days_from_answered = get_days_from_time(question["last_answered"])
+            return days_from_answered >= question_box["ask_interval_days"]
+
+        return [question for question in self.questions if is_today_question(question)]
+
+    def get_questions_for_box(self, box: Box):
+        def is_box_question(question: Question):
+            return question["box_index"] == box["index"]
+
+        return [question for question in self.questions if is_box_question(question)]
 
     async def __save(self):
         user = {
