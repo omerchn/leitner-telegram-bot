@@ -6,7 +6,7 @@ async def __help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
         return
     await update.message.reply_text(
-        "/start - Register with the bot\n/add - Add a question\n/ask - Answer questions for today\n/boxes - List all boxes and their questions\n/help - See what you can do"
+        "/start - Register with the bot\n/add - Add a question\n/ask - Answer questions for today\n/today - List all questions to be answered today\n/boxes - List all boxes and their questions\n/help - List available commands"
     )
 
 

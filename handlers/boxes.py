@@ -1,14 +1,11 @@
 from telegram import Update, constants
 from telegram.ext import ContextTypes, CommandHandler
-
 from user import User
 
 
 async def __boxes(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not update.effective_chat:
         return
-
-    boxes_message = ""
 
     user = await User.init(update.effective_chat.id)
 
@@ -17,6 +14,8 @@ async def __boxes(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "You are not registered yet! Type /start to register."
         )
         return
+
+    boxes_message = ""
 
     def get_days_text(days: int):
         if days == 1:

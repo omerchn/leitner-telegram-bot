@@ -7,6 +7,7 @@ from conversations.register import register_conversation_handler
 from conversations.add import add_conversation_handler
 from conversations.ask import ask_conversation_handler
 from handlers.help import help_handler
+from handlers.today import today_handler
 from handlers.boxes import boxes_handler
 from jobs.remind import add_remind_jobs
 
@@ -24,6 +25,7 @@ def main():
     application.add_handler(register_conversation_handler)
     application.add_handler(add_conversation_handler)
     application.add_handler(ask_conversation_handler)
+    application.add_handler(today_handler)
     application.add_handler(boxes_handler)
     application.add_handler(help_handler)
 

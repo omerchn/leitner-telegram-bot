@@ -88,7 +88,7 @@ async def __add_confirmed(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await user.add_question(context.user_data["question"], context.user_data["answer"])
 
     await update.effective_message.reply_text(
-        "Added question!\nType /add to add another.\nType /ask to start answering."
+        "Added question!\nType /add to add another.\nType /ask to start answering questions for today.\nType /today to see questions to answer today.\nType /boxes to see all questions in boxes."
     )
 
     return ConversationHandler.END
@@ -99,7 +99,7 @@ async def __add_canceled(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConversationHandler.END
 
     await update.effective_message.reply_text(
-        "Cancelled. Type /add to add another question. Type /ask to start answering."
+        "Cancelled.\nType /add to add another.\nType /ask to start answering questions for today.\nType /today to see questions to answer today.\nType /boxes to see all questions in boxes."
     )
 
     return ConversationHandler.END
