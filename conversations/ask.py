@@ -7,8 +7,6 @@ from telegram.ext import (
     ConversationHandler,
     ContextTypes,
     CommandHandler,
-    # MessageHandler,
-    # filters,
     CallbackQueryHandler,
 )
 from user import User
@@ -142,7 +140,6 @@ ask_conversation_handler = ConversationHandler(
     states={
         ANSWERING_QUESTION: [
             cancel_handler,
-            # MessageHandler(filters.TEXT, __handle_answer),
             CallbackQueryHandler(
                 __handle_answer,
                 pattern="^" + str(REVEAL) + "$",
