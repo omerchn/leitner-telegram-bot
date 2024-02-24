@@ -1,8 +1,4 @@
-from telegram import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Update,
-)
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, constants
 from telegram.ext import (
     ConversationHandler,
     ContextTypes,
@@ -47,7 +43,8 @@ async def __ask(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["current_question"] = current_question
 
     await update.message.reply_text(
-        f"You have {len(questions_for_today)} questions to answer today.\n\n- {current_question['question']}",
+        f"You have {len(questions_for_today)} questions to answer today.\n\n- <b>{current_question['question']}</b>",
+        parse_mode=constants.ParseMode.HTML,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -118,7 +115,8 @@ def __get_answer_verification_handler(correct: bool):
         context.user_data["current_question"] = next_question
 
         await update.effective_message.reply_text(
-            f'You have {len(context.user_data["questions_for_today"])} more questions for today.\n\n- {next_question["question"]}',
+            f'You have {len(context.user_data["questions_for_today"])} more questions for today.\n\n- <b>{next_question["question"]}</b>',
+            parse_mode=constants.ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
