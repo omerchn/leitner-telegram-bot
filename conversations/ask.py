@@ -47,7 +47,7 @@ async def __ask(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["current_question"] = current_question
 
     await update.message.reply_text(
-        f"You have {len(questions_for_today)} questions to answer today.\nType /cancel to stop at any time.\n\nFirst question:\n\n- {current_question['question']}",
+        f"You have {len(questions_for_today)} questions to answer today.\n\n- {current_question['question']}",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -69,7 +69,7 @@ async def __handle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     current_question = context.user_data["current_question"]
 
     await update.effective_message.reply_text(
-        f'The answer to the question is:\n\n- {current_question["answer"]}\n\nDid you know the answer?',
+        f'- {current_question["answer"]}',
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -118,7 +118,7 @@ def __get_answer_verification_handler(correct: bool):
         context.user_data["current_question"] = next_question
 
         await update.effective_message.reply_text(
-            f'You have {len(context.user_data["questions_for_today"])} more questions for today.\nType /cancel to stop at any time.\n\nNext question:\n\n- {next_question["question"]}',
+            f'You have {len(context.user_data["questions_for_today"])} more questions for today.\n\n- {next_question["question"]}',
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
