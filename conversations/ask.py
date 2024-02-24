@@ -101,8 +101,6 @@ def __get_answer_verification_handler(correct: bool):
 
         await user.update_question_box(current_question["id"], correct)
 
-        await update.effective_message.reply_text("Updated question box.")
-
         context.user_data["questions_for_today"].pop(0)
 
         if len(context.user_data["questions_for_today"]) == 0:
